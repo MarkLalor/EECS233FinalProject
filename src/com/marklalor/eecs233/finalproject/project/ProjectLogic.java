@@ -9,33 +9,42 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import com.marklalor.eecs233.finalproject.algorithm.GeneralProjectAlgorithm;
+import com.marklalor.eecs233.finalproject.algorithm.implementation.BinarySearchAlgorithm;
+import com.marklalor.eecs233.finalproject.algorithm.implementation.CheckAllAlgorithm;
 import com.marklalor.eecs233.finalproject.data.ImageSet;
-import com.marklalor.eecs233.finalproject.manager.InputManager;
-import com.marklalor.eecs233.finalproject.manager.LogicManager;
-import com.marklalor.eecs233.finalproject.manager.OutputManager;
 
-public class ProjectLogic extends LogicManager
+public class ProjectLogic
 {
+    private ProjectInput input;
+    private ProjectOutput output;
     private Map<String, Map<Integer, Double>> runtimes;
     
-    public ProjectLogic(InputManager inputManager, OutputManager outputManager)
+    public ProjectLogic(ProjectInput inputManager, ProjectOutput outputManager)
     {
-        super(inputManager, outputManager);
-        
-        runtimes = new HashMap<>();
+        this.input = inputManager;
+        this.output = outputManager;
+        this.runtimes = new HashMap<>();
     }
     
-    @Override
+    public void run()
+    {
+        for(ImageSet set : getInput().getImageSets())
+            this.run(set, new CheckAllAlgorithm(set));
+        
+        for(ImageSet set : getInput().getImageSets())
+            this.run(set, new BinarySearchAlgorithm(set));
+    }
+    
     public void run(ImageSet imageSet, GeneralProjectAlgorithm algorithm)
     {
         imageSet.resetResult();
-        getOutputManager().initiate(imageSet);
+        getOutput().initiate(imageSet);
         
         algorithm.begin();
         while(!algorithm.isComplete())
         {
             algorithm.tick();
-            getOutputManager().update();
+            getOutput().update();
         }
         
         BufferedImage result = algorithm.getImageSet().getResult();
@@ -77,7 +86,17 @@ public class ProjectLogic extends LogicManager
             e.printStackTrace();
         }
         
-        getOutputManager().complete();
+        getOutput().complete();
+    }
+    
+    public ProjectInput getInput()
+    {
+        return input;
+    }
+    
+    public ProjectOutput getOutput()
+    {
+        return output;
     }
     
     public Map<String, Map<Integer, Double>> getRuntimes()

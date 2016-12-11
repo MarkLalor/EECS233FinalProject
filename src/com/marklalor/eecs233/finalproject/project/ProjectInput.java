@@ -12,9 +12,8 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import com.marklalor.eecs233.finalproject.data.ImageSet;
-import com.marklalor.eecs233.finalproject.manager.InputManager;
 
-public class ProjectInput implements InputManager
+public class ProjectInput
 {
     private File inputFolder;
     
@@ -63,7 +62,6 @@ public class ProjectInput implements InputManager
         return inputs;
     }
     
-    @Override
     public ImageSet[] getImageSets()
     {
         ImageSet[] imageSets = new ImageSet[selectedInputs.length];

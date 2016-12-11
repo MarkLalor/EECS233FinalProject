@@ -4,18 +4,17 @@ import com.marklalor.eecs233.finalproject.data.ImageSet;
 
 public abstract class GeneralProjectAlgorithm
 {
-    private String name;
     private ImageSet imageSet;
-    private boolean complete = false;
     
+    private boolean complete = false;
     private long startTime, endTime;
+    
+    public abstract String getName();
     
     public GeneralProjectAlgorithm(ImageSet imageSet)
     {
         this.imageSet = imageSet;
     }
-    
-    public abstract String getName();
     
     public ImageSet getImageSet()
     {

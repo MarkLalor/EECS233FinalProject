@@ -9,7 +9,7 @@ import java.util.Random;
 
 import com.marklalor.eecs233.finalproject.data.ImageSet;
 
-public abstract class CreationAlgorithmBase extends GeneralProjectAlgorithm
+public abstract class ProjectAlgorithmBase extends GeneralProjectAlgorithm
 {
     private List<Integer> inputColors;
     private List<RandomizablePoint> outputPoints;
@@ -19,7 +19,7 @@ public abstract class CreationAlgorithmBase extends GeneralProjectAlgorithm
     
     int n = 0;
     
-    public CreationAlgorithmBase(ImageSet imageSet)
+    public ProjectAlgorithmBase(ImageSet imageSet)
     {
         super(imageSet);
         
@@ -81,7 +81,7 @@ public abstract class CreationAlgorithmBase extends GeneralProjectAlgorithm
         
         int colorOnOutputImage = pixels[point.y][point.x];
         
-        // abstract method up to implementation of algorithm:
+        // abstract method up to the implementation of algorithm:
         int closestIndex = getClosestIndex(colorOnOutputImage);
         
         // N time&decreases over time: "shifts subsequent elements to the left".

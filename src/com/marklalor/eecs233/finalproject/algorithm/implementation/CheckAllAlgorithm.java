@@ -1,8 +1,9 @@
-package com.marklalor.eecs233.finalproject.algorithm;
+package com.marklalor.eecs233.finalproject.algorithm.implementation;
 
+import com.marklalor.eecs233.finalproject.algorithm.ProjectAlgorithmBase;
 import com.marklalor.eecs233.finalproject.data.ImageSet;
 
-public class CheckAllAlgorithm extends CreationAlgorithmBase
+public class CheckAllAlgorithm extends ProjectAlgorithmBase
 {
     public CheckAllAlgorithm(ImageSet imageSet)
     {

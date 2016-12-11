@@ -1,10 +1,11 @@
-package com.marklalor.eecs233.finalproject.algorithm;
+package com.marklalor.eecs233.finalproject.algorithm.implementation;
 
 import java.util.Collections;
 
+import com.marklalor.eecs233.finalproject.algorithm.ProjectAlgorithmBase;
 import com.marklalor.eecs233.finalproject.data.ImageSet;
 
-public class BinarySearchAlgorithm extends CreationAlgorithmBase
+public class BinarySearchAlgorithm extends ProjectAlgorithmBase
 {
     public BinarySearchAlgorithm(ImageSet imageSet)
     {
