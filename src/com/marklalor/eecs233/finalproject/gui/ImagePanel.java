@@ -24,6 +24,11 @@ public class ImagePanel extends JPanel
         this.image = image;
     }
     
+    public BufferedImage getImage()
+    {
+        return image;
+    }
+    
     @Override
     protected void paintComponent(Graphics graphics)
     {

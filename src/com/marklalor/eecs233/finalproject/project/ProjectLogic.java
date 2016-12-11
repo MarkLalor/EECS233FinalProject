@@ -1,7 +1,12 @@
 package com.marklalor.eecs233.finalproject.project;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import com.marklalor.eecs233.finalproject.algorithm.GeneralProjectAlgorithm;
 import com.marklalor.eecs233.finalproject.data.ImageSet;
@@ -33,19 +38,33 @@ public class ProjectLogic extends LogicManager
             getOutputManager().update();
         }
         
-        double seconds = (double) algorithm.nanoRuntime() / 1000000000.0;
+        BufferedImage result = algorithm.getImageSet().getResult();
+        File resultFile = new File(new File(algorithm.getImageSet().getDirectory(), "results"), algorithm.getName() + ".png");
+        try
+        {
+            resultFile.mkdirs();
+            resultFile.createNewFile();
+            ImageIO.write(result, "PNG", resultFile);
+        }
+        catch(IOException e)
+        {
+            System.err.println("Could not create result file " + resultFile.getAbsolutePath());
+            e.printStackTrace();
+        }
         
-        System.out.println(algorithm.getName() + ": run " + imageSet.getName() + ": " + seconds + " s.");
+        double milliseconds = (double) algorithm.nanoRuntime() / 1000000.0;
+        
+        System.out.println(algorithm.getName() + ": run " + imageSet.getName() + ": " + milliseconds + " ms.");
         
         if(runtimes.containsKey(algorithm.getName()))
         {
             Map<Integer, Double> map = runtimes.get(algorithm.getName());
-            map.put(Integer.valueOf(imageSet.getName()), seconds);
+            map.put(Integer.valueOf(imageSet.getInput().getNumberOfPixels()), milliseconds);
         }
         else
         {
             Map<Integer, Double> map = new HashMap<>();
-            map.put(Integer.valueOf(imageSet.getName()), seconds);
+            map.put(imageSet.getInput().getNumberOfPixels(), milliseconds);
             runtimes.put(algorithm.getName(), map);
         }
         
@@ -59,5 +78,10 @@ public class ProjectLogic extends LogicManager
         }
         
         getOutputManager().complete();
+    }
+    
+    public Map<String, Map<Integer, Double>> getRuntimes()
+    {
+        return runtimes;
     }
 }

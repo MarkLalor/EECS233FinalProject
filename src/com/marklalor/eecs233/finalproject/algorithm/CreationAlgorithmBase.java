@@ -47,7 +47,6 @@ public abstract class CreationAlgorithmBase extends GeneralProjectAlgorithm
                 return new Double(o1.getPoint().distanceSq(origin) + o1.getWeight()).compareTo(new Double(o2.getPoint().distanceSq(origin) + o2.getWeight()));
             }
         });
-        
     }
     
     protected void getInputColorsIntegerArray()
@@ -69,21 +68,29 @@ public abstract class CreationAlgorithmBase extends GeneralProjectAlgorithm
         return outputPoints;
     }
     
+    // Done N times
+    // So, e.g. for binary.. we do [log(n) and N(?)] N times.
+    // but the N on the inside decreases 1 per tick.
     @Override
     public void tick()
     {
         Point point = this.outputPoints.remove(0).getPoint();
         
+        // cached on load: O(1)
         int[][] pixels = getImageSet().getOutput().getPixels();
         
         int colorOnOutputImage = pixels[point.y][point.x];
         
+        // abstract method up to implementation of algorithm:
         int closestIndex = getClosestIndex(colorOnOutputImage);
         
+        // N time&decreases over time: "shifts subsequent elements to the left".
         int selectedColor = this.inputColors.remove(closestIndex);
         
+        // Presumably O(1).
         this.getImageSet().getResult().setRGB(point.x, point.y, selectedColor);
         
+        // O(1)
         if(this.outputPoints.isEmpty())
             complete();
         

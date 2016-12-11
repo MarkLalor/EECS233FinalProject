@@ -22,27 +22,24 @@ public class BinarySearchAlgorithm extends CreationAlgorithmBase
         Collections.sort(this.getInputColors());
     }
     
-    public int binarySearch(int low, int high, int k)
+    public static int getClosestK(int[] a, int x)
     {
+        int idx = java.util.Arrays.binarySearch(a, x);
+        if(idx < 0)
+        {
+            idx = -idx - 1;
+        }
         
-        int mid = (low + high) / 2;
+        if(idx == 0)
+        { // littler than any
+            return a[idx];
+        }
+        else if(idx == a.length)
+        { // greater than any
+            return a[idx - 1];
+        }
         
-        if(low >= high)
-        {
-            return -1;
-        }
-        else if(getInputColors().get(mid) == k)
-        {
-            return getInputColors().get(mid);
-        }
-        else if(getInputColors().get(mid) < k)
-        {
-            return binarySearch(mid + 1, high, k);
-        }
-        else
-        {
-            return binarySearch(low, mid - 1, k);
-        }
+        return Math.abs(x - a[idx - 1]) < Math.abs(x - a[idx]) ? a[idx - 1] : a[idx];
     }
     
     @Override
@@ -51,24 +48,26 @@ public class BinarySearchAlgorithm extends CreationAlgorithmBase
         int low = 0;
         int high = getInputColors().size() - 1;
         
-        while(low < high)
+        int mid = 0, lastValue;
+        while(low <= high)
         {
-            int mid = (low + high) / 2;
-            
-            int difference1 = Math.abs(getInputColors().get(mid) - colorOnOutputImage);
-            int difference2 = Math.abs(getInputColors().get(mid + 1) - colorOnOutputImage);
-            
-            if(difference2 < difference1)
+            mid = (low + high) / 2;
+            lastValue = getInputColors().get(mid);
+            if(colorOnOutputImage < lastValue)
+            {
+                high = mid - 1;
+            }
+            else if(colorOnOutputImage > lastValue)
             {
                 low = mid + 1;
             }
             else
             {
-                high = mid;
+                return mid;
             }
         }
         
-        return high;
+        return mid;
     }
     
     @Override
