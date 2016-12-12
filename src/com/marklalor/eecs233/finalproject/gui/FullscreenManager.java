@@ -10,12 +10,12 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class IntegratedManager
+public class FullscreenManager
 {
     private JFrame frame;
     private ImagePanel input, result;
     
-    public IntegratedManager()
+    public FullscreenManager()
     {
         this.input = new ImagePanel(null);
         this.result = new ImagePanel(null);

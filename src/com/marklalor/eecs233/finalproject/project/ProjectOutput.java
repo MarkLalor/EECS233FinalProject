@@ -1,15 +1,15 @@
 package com.marklalor.eecs233.finalproject.project;
 
 import com.marklalor.eecs233.finalproject.data.ImageSet;
-import com.marklalor.eecs233.finalproject.gui.IntegratedManager;
+import com.marklalor.eecs233.finalproject.gui.FullscreenManager;
 
 public class ProjectOutput
 {
-    private IntegratedManager integratedManager = null;
+    private FullscreenManager integratedManager = null;
     
     public ProjectOutput()
     {
-        this.integratedManager = new IntegratedManager();
+        this.integratedManager = new FullscreenManager();
         this.integratedManager.showFullscreen(true);
     }
     

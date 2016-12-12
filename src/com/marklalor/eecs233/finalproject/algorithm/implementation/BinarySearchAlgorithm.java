@@ -12,63 +12,40 @@ public class BinarySearchAlgorithm extends ProjectAlgorithmBase
         super(imageSet);
     }
     
-    @Override
     /**
      * Sort the possible input colors so that we can perform a binary search
      * instead.
      */
+    @Override
     protected void getInputColorsIntegerArray()
     {
         super.getInputColorsIntegerArray();
         Collections.sort(this.getInputColors());
     }
     
-    public static int getClosestK(int[] a, int x)
-    {
-        int idx = java.util.Arrays.binarySearch(a, x);
-        if(idx < 0)
-        {
-            idx = -idx - 1;
-        }
-        
-        if(idx == 0)
-        { // littler than any
-            return a[idx];
-        }
-        else if(idx == a.length)
-        { // greater than any
-            return a[idx - 1];
-        }
-        
-        return Math.abs(x - a[idx - 1]) < Math.abs(x - a[idx]) ? a[idx - 1] : a[idx];
-    }
-    
     @Override
     public int getClosestIndex(int colorOnOutputImage)
     {
-        int low = 0;
-        int high = getInputColors().size() - 1;
+        int result = Collections.binarySearch(this.getInputColors(), colorOnOutputImage);
         
-        int mid = 0, lastValue;
-        while(low <= high)
+        if(result > 0)
+            return result;
+        else
         {
-            mid = (low + high) / 2;
-            lastValue = getInputColors().get(mid);
-            if(colorOnOutputImage < lastValue)
+            result = -result - 2;
+            if(result != -1)
             {
-                high = mid - 1;
-            }
-            else if(colorOnOutputImage > lastValue)
-            {
-                low = mid + 1;
+                if(result == this.getInputColors().size() - 1)
+                    return result;
+                
+                if(Math.abs(this.getInputColors().get(result) - colorOnOutputImage) < (this.getInputColors().get(result + 1) - colorOnOutputImage))
+                    return result;
+                else
+                    return result + 1;
             }
             else
-            {
-                return mid;
-            }
+                return 0;
         }
-        
-        return mid;
     }
     
     @Override
@@ -76,5 +53,4 @@ public class BinarySearchAlgorithm extends ProjectAlgorithmBase
     {
         return "BinarySearch";
     }
-    
 }

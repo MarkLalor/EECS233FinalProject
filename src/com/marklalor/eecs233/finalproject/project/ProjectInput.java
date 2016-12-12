@@ -41,8 +41,6 @@ public class ProjectInput
         for(String path : directoryPaths)
         {
             final File directoryFile = new File(inputFolder, path);
-            // System.out.println("Creating new ImageSet for " +
-            // directoryFile.getAbsolutePath());
             this.inputs.put(directoryFile.getName(), new ImageSet(directoryFile.getName(), directoryFile));
         }
     }

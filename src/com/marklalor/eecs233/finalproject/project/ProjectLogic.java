@@ -33,6 +33,7 @@ public class ProjectLogic
         
         for(ImageSet set : getInput().getImageSets())
             this.run(set, new BinarySearchAlgorithm(set));
+        
     }
     
     public void run(ImageSet imageSet, GeneralProjectAlgorithm algorithm)

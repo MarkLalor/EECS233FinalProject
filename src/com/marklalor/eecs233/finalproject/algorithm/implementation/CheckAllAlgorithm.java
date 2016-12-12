@@ -20,7 +20,7 @@ public class CheckAllAlgorithm extends ProjectAlgorithmBase
         {
             int testColor = getInputColors().get(i);
             int difference = Math.abs(testColor - colorOnOutputImage);
-            if(difference <= closestDifference)
+            if(difference < closestDifference)
             {
                 closestDifference = difference;
                 closestIndex = i;
@@ -35,5 +35,4 @@ public class CheckAllAlgorithm extends ProjectAlgorithmBase
     {
         return "CheckAll";
     }
-    
 }

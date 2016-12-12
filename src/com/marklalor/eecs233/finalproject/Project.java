@@ -30,13 +30,10 @@ public class Project
         // ProjectInput.createScaledImages(new File(baseDirectory), 20);
         // System.exit(0);
         
-        System.out.println("Creating InputManager.");
         ProjectInput inputManager = new ProjectInput(new File(baseDirectory, "inputs"), setName, inputs);
         
-        System.out.println("Creating OutputManager.");
         ProjectOutput outputManager = new ProjectOutput();
         
-        System.out.println("Creating LogicManager.");
         ProjectLogic logicManager = new ProjectLogic(inputManager, outputManager);
         logicManager.run();
         
